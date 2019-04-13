@@ -1,0 +1,28 @@
+{
+  "name": "no-overflow-pinyin",
+  "version": "1.0.0",
+  "description": "用网上的拼音库生成拼音会得到每个字的各种读音\r 例如 '阿' 得到拼音 ['a', 'e']\r 可以通过对得到拼音数组的排列组合来匹配用户的筛选字段",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HowGraceU/no-overflow-pinyin.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HowGraceU/no-overflow-pinyin/issues"
+  },
+  "homepage": "https://github.com/HowGraceU/no-overflow-pinyin#readme",
+  "dependencies": {
+    "node-pinyin": "^0.2.3",
+    "jasmine-core": "^3.4.0",
+    "karma": "^4.0.1",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-coverage": "^1.1.2",
+    "karma-jasmine": "^2.0.1"
+  }
+}
