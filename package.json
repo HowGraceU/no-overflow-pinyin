@@ -4,7 +4,8 @@
   "description": "用网上的拼音库生成拼音会得到每个字的各种读音\r 例如 '阿' 得到拼音 ['a', 'e']\r 可以通过对得到拼音数组的排列组合来匹配用户的筛选字段",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "util": "node mochaRunner.js"
   },
   "repository": {
     "type": "git",

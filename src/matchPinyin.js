@@ -43,13 +43,20 @@ function matchPinyin({
 }) {
     let matchKey = key.slice(keyIndex);
     let pinyinArr = pinyin[wordIndex];
-    let pinyinStr = pinyinArr[pinyinIndex];
+
     let morePosition = [];
     let ret = {
         morePosition
     };
 
-    if (pinyinArr.length !== pinyinIndex) {
+    if (!pinyinArr) {
+        return ret;
+    }
+
+    let pinyinStr = pinyinArr[pinyinIndex];
+
+
+    if (pinyinArr.length !== pinyinIndex + 1) {
         morePosition.push({
             keyIndex,
             wordIndex,
