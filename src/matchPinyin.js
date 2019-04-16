@@ -1,4 +1,6 @@
 const getPinyin = require('./getPinyin');
+const isChinese = require('./isChinese');
+const formatWord = require('./formatWord');
 
 module.exports = (key, word) => {
     let pinyin = getPinyin(word);
@@ -11,6 +13,8 @@ module.exports = (key, word) => {
     let possibleMatch = [startPosition];
 
     let searchPostion;
+    word = formatWord(word);
+
     while (searchPostion = possibleMatch.pop()) {
         let {
             isMatch,
@@ -29,6 +33,8 @@ module.exports = (key, word) => {
             possibleMatch = possibleMatch.concat(morePosition);
         }
     }
+
+    return false;
 }
 
 // 每次匹配一条线，返回匹配结果，若有分支则返回分支
@@ -42,7 +48,14 @@ function matchPinyin({
     pinyinIndex
 }) {
     let matchKey = key.slice(keyIndex);
-    let pinyinArr = pinyin[wordIndex];
+    let firstKey = matchKey.slice(0, 1);
+
+    let pinyinArr;
+    if (isChinese(firstKey)) {
+        pinyinArr = word[wordIndex];
+    } else {
+        pinyinArr = pinyin[wordIndex];
+    }
 
     let morePosition = [];
     let ret = {
@@ -55,6 +68,14 @@ function matchPinyin({
 
     let pinyinStr = pinyinArr[pinyinIndex];
 
+    // 若第一次遍历这个拼音，先将下一个拼音的定位加入栈
+    if (pinyinIndex) {
+        morePosition.push({
+            keyIndex: 0,
+            wordIndex: wordIndex + 1,
+            pinyinIndex: 0
+        });
+    }
 
     if (pinyinArr.length !== pinyinIndex + 1) {
         morePosition.push({
@@ -65,7 +86,7 @@ function matchPinyin({
     }
 
     let pinyinInKey = matchKey.indexOf(pinyinStr);
-    // console.log(`key:${key.slice(0, keyIndex + 1)} match ${word.slice(0, wordIndex + 1)} ${pinyinInKey === 0}`);
+    // console.log(`key:${key.slice(0, keyIndex + 1)} match ${word[wordIndex]} ${pinyinInKey === 0}`);
     if (pinyinInKey === 0) {
         let pinyinLen = pinyinStr.length;
         if (matchKey.length === pinyinLen) {
